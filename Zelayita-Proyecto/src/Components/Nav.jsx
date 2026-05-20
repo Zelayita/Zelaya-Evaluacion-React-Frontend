@@ -3,7 +3,7 @@ import { Link } from 'react-router' // Link permite navegación interna sin reca
 
 const Nav = () => {
   return (
-    <nav className="bg-blue-600 text-white shadow-md">
+    <nav className="bg-blue-500 text-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="text-lg font-bold">Zelaya Home</div>
 

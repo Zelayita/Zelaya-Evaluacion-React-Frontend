@@ -6,7 +6,7 @@ import ConfirmModal from '../Components/ConfirmModal'
 
 
 const Products = () => {
-  // Estados que controla la lista de productos y su carga.
+
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -16,7 +16,7 @@ const Products = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem('fakestore_token') || sessionStorage.getItem('fakestore_token')
 
-  // Filtra productos según el texto de búsqueda en título, descripción o categoría.
+
   const filteredProducts = products.filter((product) => {
     const query = searchTerm.trim().toLowerCase()
     if (!query) return true
@@ -31,7 +31,7 @@ const Products = () => {
     const currentProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage)
 
   useEffect(() => {
-    // Si no hay token válido, redirige al login.
+
     if (!token) {
       navigate('/')
       return
@@ -45,7 +45,7 @@ const Products = () => {
         }
 
         const data = await response.json()
-        // Agrega la propiedad source para distinguir productos de la API de los locales.
+
         setProducts(data.map((product) => ({ ...product, source: 'api' })))
       } catch (err) {
         setError(err.message || 'No se pudieron cargar los productos')
@@ -71,7 +71,6 @@ const Products = () => {
     setLoadingProductDetail(true)
 
     const localProduct = products.find((product) => product.id === productId)
-    // Si el producto ya está en el estado local, no vuelve a pedirlo a la API.
     if (localProduct) {
       setEditingProduct(localProduct)
       setShowProductForm(true)
@@ -105,7 +104,7 @@ const Products = () => {
 
     try {
       if (isLocalProduct) {
-        // Actualiza directamente el producto local sin llamar a la API.
+      
         setProducts((prev) =>
           prev.map((p) =>
             p.id === editingProduct.id ? { ...p, ...formData, source: p.source || 'local' } : p
@@ -296,7 +295,7 @@ const Products = () => {
           onCancel={cancelDeleteProduct}
         />
 
-        <div className="overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-200">
+        <div className="overflow-hidden rounded-3xl bg-[#EFEFEF] shadow-lg ring-1 ring-slate-200">
           <div className="border-b border-slate-200 px-6 py-4 bg-slate-100">
             <h2 className="text-lg font-medium text-slate-900">Catálogo</h2>
           </div>
@@ -370,7 +369,7 @@ const Products = () => {
                           className={`rounded-2xl px-4 py-2 text-sm font-medium transition ${
                             currentPage === page
                               ? 'bg-indigo-600 text-white shadow-sm'
-                              : 'bg-white text-slate-700 hover:bg-slate-100'
+                              : 'bg-[#D1D1D6] text-slate-700 hover:bg-slate-100'
                           }`}
                         >
                           {page}
@@ -382,7 +381,7 @@ const Products = () => {
                       type="button"
                       onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                      className="rounded-2xl border border-slate-200 bg-[#D1D1D6] px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
                     >
                       Siguiente
                     </button>

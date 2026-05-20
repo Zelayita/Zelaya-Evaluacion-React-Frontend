@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
-//Para los Usuarios
+
 const users = [
   {
     id:1,
@@ -13,7 +13,7 @@ const users = [
 
 
 const Login = () => {
-  // Estados para controlar los campos del formulario y su comportamiento.
+ 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -22,8 +22,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Si ya existe un token, el usuario ya está autenticado.
-    // Entonces redirige directamente a la página de inicio.
+
     const token = localStorage.getItem('fakestore_token') || sessionStorage.getItem('fakestore_token')
     if (token) {
       navigate('/home')
@@ -34,7 +33,7 @@ const Login = () => {
     event.preventDefault()
     setError('')
 
-    // Validación simple de los campos antes de continuar.
+    
     if (!email.trim() || !password) {
       setError('Por favor completa email y contraseña.')
       return
@@ -43,24 +42,24 @@ const Login = () => {
     setLoading(true)
 
     try {
-      // Busca en la lista local de usuarios el email y contraseña ingresados.
+      
       const user = users.find(
         (item) => item.email.toLowerCase() === email.trim().toLowerCase() && item.password === password
       )
 
       if (!user) {
-        // Si no existe, se lanza un error y se muestra al usuario.
+ 
         throw new Error('Email o contraseña incorrectos.')
       }
 
-      // Se genera un token falso para simular autenticación.
+
       const token = `token-${user.id}-${Date.now()}`
       const storage = rememberMe ? localStorage : sessionStorage
       storage.setItem('fakestore_token', token)
       storage.setItem('fakestore_user', user.username)
       storage.setItem('fakestore_email', user.email)
 
-      // Redirige a la página de inicio luego de iniciar sesión.
+ 
       navigate('/home')
     } catch (error_) {
       setError(error_.message || 'Error al iniciar sesión. Intenta nuevamente.')
